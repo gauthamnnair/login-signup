@@ -1,34 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
+
 <body>
-    <h1>Login</h1>
-    
-    <!-- Flash messages -->
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            <ul>
-                {% for category, message in messages %}
-                    <li class="{{ category }}">{{ message }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-    {% endwith %}
-    
-    <form method="POST">
-        <label for="username">Username:</label>
-        <input type="text" name="username" required><br>
-        
-        <label for="password">Password:</label>
-        <input type="password" name="password" required><br>
-        
-        <button type="submit">Login</button>
-    </form>
-    
-    <p>Don't have an account? <a href="{{ url_for('signup_page') }}">Sign up</a></p>
+    <div class="container">
+        <h1>Login</h1>
+
+        <!-- Flash messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    <ul>
+                        {% for category, message in messages %}
+                            <li class="{{ category }}">{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <form action="{{ url_for('login_page') }}" method="POST">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" name="username" id="username" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" class="password-field" required>
+                <button type="button" class="see-btn" onclick="togglePassword()">See</button>
+            </div>
+
+            <button type="submit" class="submit-btn">Login</button>
+        </form>
+
+        <p class="signup-link">Don't have an account? <a href="{{ url_for('signup_page') }}">Sign up</a></p>
+    </div>
+
+    <!-- Include external script.js -->
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
+
 </html>
