@@ -42,7 +42,7 @@ def signup_page():
         confirm_password = request.form['confirm_password']
         
         # Check if the email is valid
-        if not is_valid_email(email):
+        if not database.is_valid_email(email):
             flash('Invalid email address. Please enter a valid email.', 'danger')
             return redirect(url_for('signup_page'))
         
