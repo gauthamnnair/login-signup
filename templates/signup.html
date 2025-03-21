@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signup</title>
+    <title>Sign Up</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 
 <body>
     <div class="container">
-        <h1>Create an Account</h1>
+        <h1>Sign Up</h1>
 
         <!-- Flash messages -->
         {% with messages = get_flashed_messages(with_categories=true) %}
@@ -25,20 +25,48 @@
             {% endif %}
         {% endwith %}
 
-        <form action="{{ url_for('signup_page') }}" method="POST">
+        <form action="{{ url_for('signup_page') }}" method="POST" onsubmit="return validatePasswords()">
+            <!-- Username field -->
             <div class="form-group">
                 <label for="username">Username</label>
-                <input type="text" name="username" id="username" required>
             </div>
-
             <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" name="password" id="password" class="password-field" required>
-                <button type="button" class="see-btn" onclick="togglePassword()">See</button>
+                <input type="text" name="username" id="username" class="username-field" required>
             </div>
 
-            <button type="submit" class="submit-btn">Signup</button>
+            <!-- Email field -->
+            <div class="form-group">
+                <label for="email">Email</label>
+            </div>
+            <div class="form-group">
+                <input type="email" name="email" id="email" class="email-field" required>
+            </div>
+
+            <!-- Password field with Show button aligned to the right -->
+            <div class="form-group password-group">
+                <label for="password">Password</label>
+                <button type="button" id="toggle-password-btn" class="see-btn" onclick="togglePassword()">Show</button>
+            </div>
+            <div class="form-group">
+                <input type="password" name="password" id="password" class="password-field" required>
+            </div>
+
+            <!-- Confirm Password field with Show button -->
+            <div class="form-group password-group">
+                <label for="confirm_password">Confirm Password</label>
+                <button type="button" id="toggle-confirm-password-btn" class="see-btn" onclick="toggleConfirmPassword()">Show</button>
+            </div>
+            <div class="form-group">
+                <input type="password" name="confirm_password" id="confirm_password" class="password-field" required>
+            </div>
+
+            <button type="submit" class="submit-btn">Sign Up</button>
         </form>
+
+        <!-- Error message container, initially hidden -->
+        <div id="error-container" style="color: red; display: none;">
+            <p id="error-message">Passwords do not match. Try again.</p>
+        </div>
 
         <p class="login-link">Already have an account? <a href="{{ url_for('login_page') }}">Login</a></p>
     </div>

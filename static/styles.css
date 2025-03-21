@@ -10,10 +10,13 @@ body {
     height: 100vh;
 }
 
-h1 {
-    color: #333;
-    text-align: center;
-    margin-bottom: 20px;
+.container {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
 }
 
 /* Flash Messages */
@@ -34,29 +37,59 @@ h1 {
 }
 
 /* Form Styles */
-.container {
-    background-color: white;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 400px;
-    text-align: center;
+.form-group {
+    margin-bottom: 5px;
 }
 
-.form-group {
-    margin-bottom: 15px;
+/* Username label left-aligned with 10px margin */
+.form-group label[for="username"],
+.form-group label[for="email"],
+.form-group label[for="password"],
+.form-group label[for="confirm_password"] {
+    display: inline-block;
+    margin-left: 10px; 
+    font-weight: bold;
     text-align: left;
 }
 
-label {
-    display: block;
-    margin-bottom: 8px;
+/* Align password input and button in the same row */
+.password-group {
+    display: flex;
+    align-items: center;
     font-weight: bold;
+    justify-content: space-between; /* Ensures the button moves to the right */
+    width: 100%;
 }
 
-input[type="text"], input[type="password"] {
-    width: 90%;
+/* Show/Hide button styling for the password field */
+button.see-btn {
+    display: inline-block;
+    margin-left: auto;
+    padding: 5px 10px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Hover effect for Show button */
+button.see-btn:hover {
+    background-color: #f1f1f1;
+}
+
+button.see-btn:focus {
+    outline: none;
+}
+
+/* Hide Show button for confirm password field */
+#confirm_password ~ .see-btn {
+    display: none; /* Hide the button for confirm password */
+}
+
+/* Username, Email, and Password input fields */
+input[type="text"], input[type="email"], input[type="password"] {
+    width: 94%;
     padding: 10px;
     margin-bottom: 15px;
     border: 1px solid #ccc;
@@ -64,7 +97,8 @@ input[type="text"], input[type="password"] {
     font-size: 16px;
 }
 
-button.submit-btn {
+/* Submit button */
+.submit-btn {
     width: 100%;
     padding: 10px;
     background-color: #4CAF50;
@@ -76,13 +110,15 @@ button.submit-btn {
     transition: background-color 0.3s ease;
 }
 
-button.submit-btn:hover {
+.submit-btn:hover {
     background-color: #45a049;
 }
 
+/* Centering the "Don't have an account?" link */
 .signup-link {
     text-align: center;
     margin-top: 15px;
+    margin-left: -10px;
 }
 
 .signup-link a {
@@ -93,6 +129,52 @@ button.submit-btn:hover {
 .signup-link a:hover {
     text-decoration: underline;
 }
+
+/* Center the Login text */
+h1 {
+    text-align: center;
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+/* Centering the "Login" button */
+.login-link {
+    text-align: center;
+    margin-top: 15px;
+    margin-left: -10px;
+}
+
+.login-link a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}
+
+/* Error message container */
+#error-container {
+    margin-top: 15px;
+    text-align: center;
+    width: 100%;  /* Ensure it takes full width */
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically, if the height allows */
+}
+
+#error-message {
+    color: red;
+    font-size: 14px;
+    font-weight: bold;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    padding: 10px;
+    border-radius: 5px;
+    width: auto;  /* Ensure the width adjusts based on content */
+    display: inline-block;  /* Ensure the message doesn't span full width */
+}
+
 
 /* Responsive Design */
 @media (max-width: 480px) {
