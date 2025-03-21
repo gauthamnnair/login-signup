@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
-import database  # Import functions from database.py
+import database
 
 app = Flask(__name__)
 
@@ -17,19 +17,18 @@ def home():
 @app.route('/login', methods=['GET', 'POST'])
 def login_page():
     if request.method == 'POST':
-        username = request.form['username']
+        identifier = request.form['identifier']  # This will be either username or email
         password = request.form['password']
         
         # Call the login function from database.py
-        if database.login(username, password):
+        if database.login(identifier, password):
             flash('Login successful!', 'success')
             return redirect(url_for('dashboard'))  # Redirect to the dashboard after successful login
         else:
-            flash('Incorrect username or password. Please try again.', 'danger')
+            flash('Incorrect username/email or password. Please try again.', 'danger')
     
     return render_template('login.html')
 
-# Change 'index' to 'dashboard' to avoid conflict
 @app.route('/dashboard')
 def dashboard():
     return render_template('index.html')  # Render index.html after successful login
@@ -38,14 +37,26 @@ def dashboard():
 def signup_page():
     if request.method == 'POST':
         username = request.form['username']
+        email = request.form['email']  # Get email from the form
         password = request.form['password']
+        confirm_password = request.form['confirm_password']
         
+        # Check if the email is valid
+        if not is_valid_email(email):
+            flash('Invalid email address. Please enter a valid email.', 'danger')
+            return redirect(url_for('signup_page'))
+        
+        # Check if passwords match
+        if password != confirm_password:
+            flash('Passwords do not match. Please try again.', 'danger')
+            return redirect(url_for('signup_page'))
+
         # Call the signup function from database.py
-        if database.signup(username, password):
+        if database.signup(username, email, password):
             flash('Signup successful! You can now log in.', 'success')
             return redirect(url_for('login_page'))  # Redirect to login page after signup
         else:
-            flash('Username already exists, please choose a different one.', 'danger')
+            flash('Username or email already exists, please choose a different one.', 'danger')
     
     return render_template('signup.html')
 

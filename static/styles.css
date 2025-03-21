@@ -19,21 +19,42 @@ body {
     max-width: 400px;
 }
 
-/* Flash Messages */
+/* Flash Messages Container */
+.flash-messages {
+    display: flex;
+    justify-content: center;  /* Horizontally centers the content */
+    align-items: center;      /* Vertically centers the content */
+    position: fixed;          /* Keeps it in a fixed position on the screen */
+    top: 20px;                /* Adjust as needed */
+    left: 50%;
+    transform: translateX(-50%); /* Ensures it is centered horizontally */
+    z-index: 9999;            /* Keeps the flash message on top of other elements */
+    width: auto;
+    max-width: 80%;           /* Optional: Adjust width */
+    padding: 10px 20px;       /* Adjust padding as needed */
+    border-radius: 5px;       /* Optional: To round the corners */
+    text-align: center;       /* Ensures text is centered inside */
+}
+
+/* Flash Messages List Styling */
 .flash-messages ul {
     list-style-type: none;
     padding: 0;
     margin: 0;
 }
 
-.flash-messages li.success {
-    color: green;
-    font-weight: bold;
+.flash-messages li {
+    font-weight: bold;  /* Ensures bold text for all messages */
 }
 
+/* Success Message Styling */
+.flash-messages li.success {
+    color: green;
+}
+
+/* Danger Message Styling */
 .flash-messages li.danger {
     color: red;
-    font-weight: bold;
 }
 
 /* Form Styles */
@@ -44,6 +65,7 @@ body {
 /* Username label left-aligned with 10px margin */
 .form-group label[for="username"],
 .form-group label[for="email"],
+.form-group label[for="identifier"],
 .form-group label[for="password"],
 .form-group label[for="confirm_password"] {
     display: inline-block;

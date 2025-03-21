@@ -26,14 +26,14 @@
         {% endwith %}
 
         <form action="{{ url_for('login_page') }}" method="POST">
-            <!-- Username field -->
+            <!-- Username or Email field -->
             <div class="form-group">
-                <label for="username">Username</label>
+                <label for="identifier">Username or Email</label>
             </div>
 
-            <!-- Username input field placed on the next row -->
+            <!-- Input for Username or Email -->
             <div class="form-group">
-                <input type="text" name="username" id="username" class="username-field" required>
+                <input type="text" name="identifier" id="identifier" class="username-field" required>
             </div>
 
             <!-- Password field with Show button aligned to the right -->
