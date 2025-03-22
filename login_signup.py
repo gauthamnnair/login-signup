@@ -1,20 +1,12 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+# login_signup.py
+from flask import Blueprint, render_template, request, redirect, url_for, flash
 import database
 
-app = Flask(__name__)
+# Create the blueprint for login and signup routes
+auth_blueprint = Blueprint('auth', __name__)
 
-# Secret key for session management
-app.secret_key = 'your_secret_key_here'
-
-# Create the database when the app starts
-database.create_db()
-
-# Default route to redirect to the login page
-@app.route('/')
-def home():
-    return redirect(url_for('login_page'))  # Redirect to login page by default
-
-@app.route('/login', methods=['GET', 'POST'])
+# Login route
+@auth_blueprint.route('/login', methods=['GET', 'POST'])
 def login_page():
     if request.method == 'POST':
         identifier = request.form['identifier']  # This will be either username or email
@@ -29,11 +21,8 @@ def login_page():
     
     return render_template('login.html')
 
-@app.route('/dashboard')
-def dashboard():
-    return render_template('index.html')  # Render index.html after successful login
-
-@app.route('/signup', methods=['GET', 'POST'])
+# Signup route
+@auth_blueprint.route('/signup', methods=['GET', 'POST'])
 def signup_page():
     if request.method == 'POST':
         username = request.form['username']
@@ -44,21 +33,18 @@ def signup_page():
         # Check if the email is valid
         if not database.is_valid_email(email):
             flash('Invalid email address. Please enter a valid email.', 'danger')
-            return redirect(url_for('signup_page'))
+            return redirect(url_for('auth.signup_page'))
         
         # Check if passwords match
         if password != confirm_password:
             flash('Passwords do not match. Please try again.', 'danger')
-            return redirect(url_for('signup_page'))
+            return redirect(url_for('auth.signup_page'))
 
         # Call the signup function from database.py
         if database.signup(username, email, password):
             flash('Signup successful! You can now log in.', 'success')
-            return redirect(url_for('login_page'))  # Redirect to login page after signup
+            return redirect(url_for('auth.login_page'))  # Redirect to login page after signup
         else:
             flash('Username or email already exists, please choose a different one.', 'danger')
     
     return render_template('signup.html')
-
-if __name__ == '__main__':
-    app.run(debug=True)

@@ -25,7 +25,7 @@
             {% endif %}
         {% endwith %}
 
-        <form action="{{ url_for('signup_page') }}" method="POST" onsubmit="return validatePasswords()">
+        <form action="{{ url_for('auth.signup_page') }}" method="POST" onsubmit="return validatePasswords()">
             <!-- Username field -->
             <div class="form-group">
                 <label for="username">Username</label>
@@ -68,7 +68,7 @@
             <p id="error-message">Passwords do not match. Try again.</p>
         </div>
 
-        <p class="login-link">Already have an account? <a href="{{ url_for('login_page') }}">Login</a></p>
+        <p class="login-link">Already have an account? <a href="{{ url_for('auth.login_page') }}">Login</a></p>
     </div>
 
     <!-- Include external script.js -->
