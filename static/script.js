@@ -1,30 +1,15 @@
-// Function to toggle the visibility of the password
-function togglePassword() {
-    var passwordField = document.getElementById("password");
-    var button = document.getElementById("toggle-password-btn");
+// General function to toggle visibility of the password field
+function togglePassword(passwordId, buttonId) {
+    var passwordField = document.getElementById(passwordId);  // Get the password field by its ID
+    var button = document.getElementById(buttonId);  // Get the button by its ID
 
-    // Toggle the password field type between 'password' and 'text'
+    // Check if the password is hidden
     if (passwordField.type === "password") {
-        passwordField.type = "text";
-        button.textContent = "Hide"; // Change the button text to "Hide"
+        passwordField.type = "text";  // Show password
+        button.textContent = "Hide";  // Change button text to "Hide"
     } else {
-        passwordField.type = "password";
-        button.textContent = "Show"; // Change the button text back to "Show"
-    }
-}
-
-// Function to toggle the visibility of the confirm password
-function toggleConfirmPassword() {
-    var confirmPasswordField = document.getElementById("confirm_password");
-    var button = document.getElementById("toggle-confirm-password-btn");
-
-    // Toggle the confirm password field type between 'password' and 'text'
-    if (confirmPasswordField.type === "password") {
-        confirmPasswordField.type = "text";
-        button.textContent = "Hide"; // Change the button text to "Hide"
-    } else {
-        confirmPasswordField.type = "password";
-        button.textContent = "Show"; // Change the button text back to "Show"
+        passwordField.type = "password";  // Hide password
+        button.textContent = "Show";  // Change button text back to "Show"
     }
 }
 

@@ -29,23 +29,19 @@
             <!-- Username field -->
             <div class="form-group">
                 <label for="username">Username</label>
-            </div>
-            <div class="form-group">
                 <input type="text" name="username" id="username" class="username-field" required>
             </div>
 
             <!-- Email field -->
             <div class="form-group">
                 <label for="email">Email</label>
-            </div>
-            <div class="form-group">
                 <input type="email" name="email" id="email" class="email-field" required>
             </div>
 
             <!-- Password field with Show button aligned to the right -->
             <div class="form-group password-group">
                 <label for="password">Password</label>
-                <button type="button" id="toggle-password-btn" class="see-btn" onclick="togglePassword()">Show</button>
+                <button type="button" id="toggle-password-btn" class="see-btn" onclick="togglePassword('password', 'toggle-password-btn')">Show</button>
             </div>
             <div class="form-group">
                 <input type="password" name="password" id="password" class="password-field" required>
@@ -54,7 +50,7 @@
             <!-- Confirm Password field with Show button -->
             <div class="form-group password-group">
                 <label for="confirm_password">Confirm Password</label>
-                <button type="button" id="toggle-confirm-password-btn" class="see-btn" onclick="toggleConfirmPassword()">Show</button>
+                <button type="button" id="toggle-confirm-password-btn" class="see-btn" onclick="togglePassword('confirm_password', 'toggle-confirm-password-btn')">Show</button>
             </div>
             <div class="form-group">
                 <input type="password" name="confirm_password" id="confirm_password" class="password-field" required>
@@ -72,7 +68,38 @@
     </div>
 
     <!-- Include external script.js -->
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script>
+        // General function to toggle visibility of the password field
+        function togglePassword(passwordId, buttonId) {
+            var passwordField = document.getElementById(passwordId);  // Get the password field by ID
+            var button = document.getElementById(buttonId); // Get the button by ID
+
+            // Check if the password is hidden
+            if (passwordField.type === "password") {
+                passwordField.type = "text";  // Show password
+                button.textContent = "Hide";  // Change button text to "Hide"
+            } else {
+                passwordField.type = "password";  // Hide password
+                button.textContent = "Show";  // Change button text back to "Show"
+            }
+        }
+
+        // Function to validate if password and confirm password match
+        function validatePasswords() {
+            var passwordField = document.getElementById("password");
+            var confirmPasswordField = document.getElementById("confirm_password");
+            var errorContainer = document.getElementById("error-container");
+
+            // Check if passwords match
+            if (passwordField.value !== confirmPasswordField.value) {
+                errorContainer.style.display = "block";  // Show error message
+                return false;  // Prevent form submission
+            } else {
+                errorContainer.style.display = "none";  // Hide error message
+                return true;  // Allow form submission
+            }
+        }
+    </script>
 </body>
 
 </html>

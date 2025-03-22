@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
-
 <body>
     <div class="container">
         <h1>Login</h1>
@@ -26,12 +24,9 @@
         {% endwith %}
 
         <form action="{{ url_for('auth.login_page') }}" method="POST">
-            <!-- Username or Email field -->
             <div class="form-group">
                 <label for="identifier">Username or Email</label>
             </div>
-
-            <!-- Input for Username or Email -->
             <div class="form-group">
                 <input type="text" name="identifier" id="identifier" class="username-field" required>
             </div>
@@ -39,12 +34,11 @@
             <!-- Password field with Show button aligned to the right -->
             <div class="form-group password-group">
                 <label for="password">Password</label>
-                <button type="button" class="see-btn" onclick="togglePassword()">Show</button>
+                <button type="button" id="toggle-password-btn-login" class="see-btn" onclick="togglePassword('password-login', 'toggle-password-btn-login')">Show</button>
             </div>
 
-            <!-- Password input field placed on the next row -->
             <div class="form-group">
-                <input type="password" name="password" id="password" class="password-field" required>
+                <input type="password" name="password" id="password-login" class="password-field" required>
             </div>
 
             <button type="submit" class="submit-btn">Login</button>
@@ -53,8 +47,6 @@
         <p class="signup-link">Don't have an account? <a href="{{ url_for('auth.signup_page') }}">Sign up</a></p>
     </div>
 
-    <!-- Include external script.js -->
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
-
 </html>
